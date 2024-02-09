@@ -1,6 +1,21 @@
 import { Box, Button, Icon, InputAdornment, Paper, TextField, useTheme } from "@mui/material"
 
-export const BarraDeFerramentas = () => {
+interface IBarraDeFerramentasProps {
+    textoDaBusca?: string;
+    mostrarInputBusca?: boolean;
+    aoMudarTextoDeBusca?: (novoTexto: string) => void;
+    textoBotaoNovo?: string;
+    mostrarBotaoNovo?: boolean;
+    aoClicarEmNovo?: () => void;
+}
+export const BarraDeFerramentas: React.FC<IBarraDeFerramentasProps> = ({
+    textoDaBusca = '',
+    mostrarInputBusca = false,
+    aoMudarTextoDeBusca,
+    textoBotaoNovo = 'Novo',
+    mostrarBotaoNovo = true,
+    aoClicarEmNovo
+}) => {
 
     const theme = useTheme();
 
@@ -15,23 +30,30 @@ export const BarraDeFerramentas = () => {
             alignItems='center'
             component={Paper}
         >
-            <TextField 
-                size='small'
-                placeholder='Pesquisar...'
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <Icon>search</Icon>
-                        </InputAdornment>
-                    )
-                }}
-            />
-            <Button
-                variant="contained"
-                color="primary"
-                disableElevation
-                endIcon={<Icon>add</Icon>}
-            >Novo</Button>
+            {mostrarInputBusca && (
+                <TextField
+                    size='small'
+                    placeholder='Pesquisar...'
+                    value={textoDaBusca}
+                    onChange={(e) => aoMudarTextoDeBusca?.(e.target.value)}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Icon>search</Icon>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+            )}
+            {mostrarBotaoNovo && (
+                <Button
+                    variant="contained"
+                    color="primary"
+                    disableElevation
+                    onClick={aoClicarEmNovo}
+                    endIcon={<Icon>add</Icon>}
+                >{textoBotaoNovo}</Button>
+            )}
         </Box>
     )
 }
