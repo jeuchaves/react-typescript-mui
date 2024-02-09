@@ -1,6 +1,34 @@
-import { Home } from "@mui/icons-material";
-import { Avatar, Box, Divider, Drawer, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from "@mui/material"
+import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from "@mui/material"
 import { useAppDrawerContext } from "../../contexts";
+import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
+
+interface IListItemLinkProps {
+    label: string;
+    icon: string;
+    to: string;
+    onClick: (() => void) | undefined;
+}
+const ListItemLink: React.FC<IListItemLinkProps> = ({ label, icon, to, onClick }) => {
+
+    const navigate = useNavigate();
+
+    const resolvedPath = useResolvedPath(to);
+    const match = useMatch({ path: resolvedPath.pathname, end: false });
+
+    const handleClick = () => {
+        navigate(to);
+        onClick?.();
+    }
+
+    return (
+        <ListItemButton selected={!!match} onClick={handleClick}>
+            <ListItemIcon>
+                <Icon>{icon}</Icon>
+            </ListItemIcon>
+            <ListItemText primary={label} />
+        </ListItemButton>
+    )
+}
 
 interface IMenuLateralProps {
     children: React.ReactNode;
@@ -11,24 +39,27 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
 
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const { isDrawerOpen, toggleDrawerOpen } = useAppDrawerContext();
+    const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useAppDrawerContext();
 
     return (
         <>
-            <Drawer open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={ toggleDrawerOpen }>
+            <Drawer open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
                 <Box width={theme.spacing(28)} display='flex' flexDirection='column' height='100%'>
                     <Box width='100%' height={theme.spacing(20)} display='flex' alignItems='center' justifyContent='center'>
-                        <Avatar sx={{height: theme.spacing(12), width: theme.spacing(12)}} src="/static/images/avatar/1.jpg" />
+                        <Avatar sx={{ height: theme.spacing(12), width: theme.spacing(12) }} src="/static/images/avatar/1.jpg" />
                     </Box>
-                    <Divider/>
+                    <Divider />
                     <Box flex={1}>
                         <List component='nav'>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <Home/>
-                                </ListItemIcon>
-                                <ListItemText primary='Home'/>
-                            </ListItemButton>
+                            {drawerOptions.map(drawerOption => (
+                                <ListItemLink
+                                    key={drawerOption.path}
+                                    label={drawerOption.label}
+                                    icon={drawerOption.icon}
+                                    to={drawerOption.path}
+                                    onClick={smDown ? toggleDrawerOpen : undefined}
+                                />
+                            ))}
                         </List>
                     </Box>
                 </Box>
