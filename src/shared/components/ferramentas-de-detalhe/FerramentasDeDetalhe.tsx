@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Icon, Paper, useTheme } from "@mui/material"
+import { Box, Button, Divider, Icon, Paper, Skeleton, useTheme } from "@mui/material"
 
 interface IFerramentasDeDetalheProps {
     textoBotaoNovo?: string;
@@ -9,12 +9,17 @@ interface IFerramentasDeDetalheProps {
     mostrarBotaoSalvar?: boolean;
     mostrarBotaoSalvarEFechar?: boolean;
 
+    mostrarBotaoNovoCarregando?: boolean;
+    mostrarBotaoVoltarCarregando?: boolean;
+    mostrarBotaoApagarCarregando?: boolean;
+    mostrarBotaoSalvarCarregando?: boolean;
+    mostrarBotaoSalvarEFecharCarregando?: boolean;
+
     aoClicarEmNovo?: () => void;
     aoClicarEmVoltar?: () => void;
     aoClicarEmApagar?: () => void;
     aoClicarEmSalvar?: () => void;
     aoClicarEmSalvarEFechar?: () => void;
-
 }
 export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
     textoBotaoNovo = "Novo",
@@ -24,6 +29,12 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
     mostrarBotaoApagar = true,
     mostrarBotaoSalvar = true,
     mostrarBotaoSalvarEFechar = false,
+
+    mostrarBotaoNovoCarregando = false,
+    mostrarBotaoVoltarCarregando = false,
+    mostrarBotaoApagarCarregando = false,
+    mostrarBotaoSalvarCarregando = false,
+    mostrarBotaoSalvarEFecharCarregando = false,
 
     aoClicarEmNovo,
     aoClicarEmVoltar,
@@ -45,7 +56,7 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
             alignItems='center'
             component={Paper}
         >
-            {mostrarBotaoSalvar && (
+            {(mostrarBotaoSalvar && !mostrarBotaoSalvarCarregando) && (
                 <Button
                     variant='contained'
                     color="primary"
@@ -54,7 +65,10 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
                     onClick={aoClicarEmSalvar}
                 >Salvar</Button>
             )}
-            {mostrarBotaoSalvarEFechar && (
+            {mostrarBotaoSalvarCarregando && (
+                <Skeleton width={110} height={60}/>
+            )}
+            {(mostrarBotaoSalvarEFechar && !mostrarBotaoSalvarEFecharCarregando) && (
                 <Button
                     variant='outlined'
                     color="primary"
@@ -63,7 +77,10 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
                     onClick={aoClicarEmSalvarEFechar}
                 >Salvar e Voltar</Button>
             )}
-            {mostrarBotaoApagar && (
+            {mostrarBotaoSalvarEFecharCarregando && (
+                <Skeleton width={110} height={60}/>
+            )}
+            {(mostrarBotaoApagar && !mostrarBotaoApagarCarregando) && (
                 <Button
                     variant='outlined'
                     color="primary"
@@ -72,7 +89,10 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
                     onClick={aoClicarEmApagar}
                 >Apagar</Button>
             )}
-            {mostrarBotaoNovo && (
+            {mostrarBotaoApagarCarregando && (
+                <Skeleton width={110} height={60}/>
+            )}
+            {(mostrarBotaoNovo && !mostrarBotaoNovoCarregando) && (
                 <Button
                     variant='outlined'
                     color="primary"
@@ -81,8 +101,11 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
                     onClick={aoClicarEmNovo}
                 >{textoBotaoNovo}</Button>
             )}
+            {mostrarBotaoNovoCarregando && (
+                <Skeleton width={110} height={60}/>
+            )}
             <Divider variant="middle" orientation="vertical" />
-            {mostrarBotaoVoltar && (
+            {(mostrarBotaoVoltar && !mostrarBotaoVoltarCarregando) && (
                 <Button
                     variant='outlined'
                     color="primary"
@@ -90,6 +113,9 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
                     startIcon={<Icon>arrow_back</Icon>}
                     onClick={aoClicarEmVoltar}
                 >Voltar</Button>
+            )}
+            {mostrarBotaoVoltarCarregando && (
+                <Skeleton width={110} height={60}/>
             )}
         </Box>
     )
