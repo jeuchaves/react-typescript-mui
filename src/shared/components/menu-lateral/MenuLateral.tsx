@@ -1,5 +1,5 @@
 import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from "@mui/material"
-import { useAppDrawerContext } from "../../contexts";
+import { useAppDrawerContext, useAppThemeContext } from "../../contexts";
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 
 interface IListItemLinkProps {
@@ -40,6 +40,7 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
     const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useAppDrawerContext();
+    const { toggleTheme, themeName } = useAppThemeContext();
 
     return (
         <>
@@ -60,6 +61,16 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
                                     onClick={smDown ? toggleDrawerOpen : undefined}
                                 />
                             ))}
+                        </List>
+                    </Box>
+                    <Box>
+                        <List component='nav'>
+                            <ListItemButton onClick={toggleTheme}>
+                                <ListItemIcon>
+                                    <Icon>{themeName === 'light' ? 'dark_mode' : 'light_mode'}</Icon>
+                                </ListItemIcon>
+                                <ListItemText primary={themeName === 'light' ? 'Modo escuro' : 'Modo claro'} />
+                            </ListItemButton>
                         </List>
                     </Box>
                 </Box>
