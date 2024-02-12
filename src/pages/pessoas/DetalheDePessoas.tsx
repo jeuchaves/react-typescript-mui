@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
+import { Form } from "@unform/web";
 
 import { PessoasService } from "../../shared/services/api/pessoas/PessoasService";
 import { FerramentasDeDetalhe } from "../../shared/components";
 import { LayoutBaseDePagina } from "../../shared/layouts";
-import { LinearProgress } from "@mui/material";
+import { VtexField } from "../../shared/forms";
 
 export const DetalheDePessoas: React.FC = () => {
     
@@ -44,11 +45,10 @@ export const DetalheDePessoas: React.FC = () => {
                         return;
                     }
                     setNome(result.nomeCompleto);
-                    console.log(result);
                 })
         }
-    }, [id, navigate])
-    
+    }, [id, navigate]);
+
     return (
         <LayoutBaseDePagina 
             titulo={id === 'nova' ? 'Nova pessoa' : nome}
@@ -67,10 +67,17 @@ export const DetalheDePessoas: React.FC = () => {
                 />
             }
         >
+
             {isLoading && (
-                <LinearProgress variant="indeterminate"/>
+                <p>Carregando</p>
             )}
 
+            <Form onSubmit={(dados) => console.log(dados)} placeholder={''}>
+                <VtexField
+                    name="nomeCompleto"
+                />
+                <button type="submit">Submit</button>                
+            </Form>
         </LayoutBaseDePagina>
     )
 }
