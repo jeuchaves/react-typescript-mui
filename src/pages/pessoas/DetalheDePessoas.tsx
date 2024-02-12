@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { Form } from "@unform/web";
 
@@ -6,17 +6,26 @@ import { PessoasService } from "../../shared/services/api/pessoas/PessoasService
 import { FerramentasDeDetalhe } from "../../shared/components";
 import { LayoutBaseDePagina } from "../../shared/layouts";
 import { VtexField } from "../../shared/forms";
+import { FormHandles } from "@unform/core";
+
+interface IFormData {
+    email: string;
+    nomeCompleto: string;
+    cidadeId: string;
+}
 
 export const DetalheDePessoas: React.FC = () => {
     
     const { id = 'nova' } = useParams<'id'>();
     const navigate = useNavigate();
 
+    const formRef = useRef<FormHandles>(null);
+
     const [nome, setNome] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSave = () => {
-        console.log('Salvar')
+    const handleSave = (dados: IFormData) => {
+        console.log(dados)
     }
 
     const handleDelete = () => {
@@ -59,8 +68,8 @@ export const DetalheDePessoas: React.FC = () => {
                     mostrarBotaoApagar={id !== 'nova'}
                     mostrarBotaoNovo={id !== 'nova'}
 
-                    aoClicarEmSalvar={handleSave}
-                    aoClicarEmSalvarEFechar={handleSave}
+                    aoClicarEmSalvar={() => formRef.current?.submitForm()}
+                    aoClicarEmSalvarEFechar={() => formRef.current?.submitForm()}
                     aoClicarEmApagar={handleDelete}
                     aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
                     aoClicarEmVoltar={() => navigate('/pessoas')}
@@ -72,12 +81,12 @@ export const DetalheDePessoas: React.FC = () => {
                 <p>Carregando</p>
             )}
 
-            <Form onSubmit={(dados) => console.log(dados)} placeholder={''}>
-                <VtexField
-                    name="nomeCompleto"
-                />
-                <button type="submit">Submit</button>                
+            <Form ref={formRef} onSubmit={handleSave} placeholder=''>
+                <VtexField name="nomeCompleto"/>
+                <VtexField name="email"/>
+                <VtexField name="cidadeId"/>
             </Form>
+
         </LayoutBaseDePagina>
     )
 }
