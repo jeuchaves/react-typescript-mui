@@ -11,11 +11,11 @@ import { FormHandles } from "@unform/core";
 interface IFormData {
     email: string;
     nomeCompleto: string;
-    cidadeId: string;
+    cidadeId: number;
 }
 
 export const DetalheDePessoas: React.FC = () => {
-    
+
     const { id = 'nova' } = useParams<'id'>();
     const navigate = useNavigate();
 
@@ -25,7 +25,29 @@ export const DetalheDePessoas: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSave = (dados: IFormData) => {
-        console.log(dados)
+        setIsLoading(true);
+        if (id === 'nova') {
+            PessoasService
+                .create(dados)
+                .then((result) => {
+                    setIsLoading(false);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                        return;
+                    }
+                    navigate(`/pessoas/detalhe/${result}`);
+                });
+        } else {
+            PessoasService
+                .updateById(Number(id), { id: Number(id), ...dados })
+                .then((result) => {
+                    setIsLoading(false);
+                    if (result instanceof Error) {
+                        alert(result.message);
+                        return;
+                    }
+                });
+        }
     }
 
     const handleDelete = () => {
@@ -45,7 +67,8 @@ export const DetalheDePessoas: React.FC = () => {
     useEffect(() => {
         if (id !== 'nova') {
             setIsLoading(true);
-            PessoasService.getById(Number(id))
+            PessoasService
+                .getById(Number(id))
                 .then((result) => {
                     setIsLoading(false);
                     if (result instanceof Error) {
@@ -54,16 +77,17 @@ export const DetalheDePessoas: React.FC = () => {
                         return;
                     }
                     setNome(result.nomeCompleto);
+                    formRef.current?.setData(result);
                 })
         }
     }, [id, navigate]);
 
     return (
-        <LayoutBaseDePagina 
+        <LayoutBaseDePagina
             titulo={id === 'nova' ? 'Nova pessoa' : nome}
             barraDeFerramentas={
                 <FerramentasDeDetalhe
-                    textoBotaoNovo="Nova"    
+                    textoBotaoNovo="Nova"
                     mostrarBotaoSalvarEFechar
                     mostrarBotaoApagar={id !== 'nova'}
                     mostrarBotaoNovo={id !== 'nova'}
@@ -82,9 +106,9 @@ export const DetalheDePessoas: React.FC = () => {
             )}
 
             <Form ref={formRef} onSubmit={handleSave} placeholder=''>
-                <VtexField name="nomeCompleto"/>
-                <VtexField name="email"/>
-                <VtexField name="cidadeId"/>
+                <VtexField placeholder="Nome completo" name="nomeCompleto" />
+                <VtexField placeholder="E-mail" name="email" />
+                <VtexField placeholder="Cidade ID" name="cidadeId" />
             </Form>
 
         </LayoutBaseDePagina>

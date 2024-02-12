@@ -20,8 +20,8 @@
     },
     {
       "id": 6,
+      "nomeCompleto": "Maria Alice",
       "email": "maria_alice@gmail.com",
-      "nomeCompleto": "Maria Pimentel",
       "cidadeId": 1
     },
     {
@@ -71,6 +71,12 @@
       "email": "eloa@gmail.com",
       "nomeCompleto": "Eloah Pimentel",
       "cidadeId": 3
+    },
+    {
+      "id": 15,
+      "nomeCompleto": "Carlos Alberto 2",
+      "email": "carlos@gmail.com",
+      "cidadeId": "1"
     }
   ]
 }
