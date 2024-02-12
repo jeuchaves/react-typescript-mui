@@ -71,12 +71,6 @@
       "email": "eloa@gmail.com",
       "nomeCompleto": "Eloah Pimentel",
       "cidadeId": 3
-    },
-    {
-      "id": 15,
-      "email": "isis@gmail.com",
-      "nomeCompleto": "Isis Pimentel",
-      "cidadeId": 1
     }
   ]
 }
