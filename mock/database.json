@@ -1,5 +1,8 @@
 {
     "pessoas": [
-      { "id": "1", "nome": "Jeú", "sobrenome": "Chaves" }
+      { "id": 1, "email": "jeu@gmail.com", "nomeCompleto": "Jeú Chaves", "cidadeId": 1 },
+      { "id": 2, "email": "jose@gmail.com", "nomeCompleto": "José Nobrega", "cidadeId": 1 },
+      { "id": 3, "email": "rodrigo@gmail.com", "nomeCompleto": "Rodrigo Lucas", "cidadeId": 1 },
+      { "id": 4, "email": "gustavo@gmail.com", "nomeCompleto": "Gustavo Pimentel", "cidadeId": 1 }
     ]
   }
