@@ -2,7 +2,7 @@
   "pessoas": [
     {
       "id": 1,
-      "nomeCompleto": "Jeú Chaves",
+      "nomeCompleto": "Jeú Chaves Lima",
       "email": "jeu@gmail.com",
       "cidadeId": 1
     },
@@ -71,18 +71,6 @@
       "email": "eloa@gmail.com",
       "nomeCompleto": "Eloah Pimentel",
       "cidadeId": 3
-    },
-    {
-      "id": 15,
-      "nomeCompleto": "Carlos Alberto 2",
-      "email": "carlos@gmail.com",
-      "cidadeId": "1"
-    },
-    {
-      "id": 16,
-      "nomeCompleto": "Novo Augusto 2",
-      "email": "novo_augusto@gmail.com",
-      "cidadeId": "4"
     }
   ]
 }

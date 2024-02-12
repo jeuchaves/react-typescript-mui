@@ -1,1 +1,4 @@
-export * from './VtexField'
+export * from './VtexField';
+export * from './useVForm';
+export * from './VScope';
+export * from './VForm';
