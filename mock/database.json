@@ -2,8 +2,8 @@
   "pessoas": [
     {
       "id": 1,
-      "email": "jeu@gmail.com",
       "nomeCompleto": "Jeú Chaves",
+      "email": "jeu@gmail.com",
       "cidadeId": 1
     },
     {
@@ -77,6 +77,12 @@
       "nomeCompleto": "Carlos Alberto 2",
       "email": "carlos@gmail.com",
       "cidadeId": "1"
+    },
+    {
+      "id": 16,
+      "nomeCompleto": "Novo Augusto 2",
+      "email": "novo_augusto@gmail.com",
+      "cidadeId": "4"
     }
   ]
 }
