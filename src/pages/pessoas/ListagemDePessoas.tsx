@@ -4,7 +4,7 @@ import { LayoutBaseDePagina } from "../../shared/layouts"
 import { useEffect, useMemo, useState } from "react";
 import { IListagemPessoa, PessoasService } from "../../shared/services/api/pessoas/PessoasService";
 import { useDebounce } from "../../shared/hooks";
-import { Backdrop, Box, CircularProgress, Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Icon, IconButton, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography } from "@mui/material";
 import { Environment } from "../../shared/environment";
 
 export const ListagemDePessoas: React.FC = () => {
@@ -50,36 +50,45 @@ export const ListagemDePessoas: React.FC = () => {
             }
         >
             <Box margin={1}>
-                <Backdrop open={isLoading}><CircularProgress/></Backdrop>
-                {(totalCount > 0) ? (
-                    <TableContainer component={Paper} variant="outlined">
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Ações</TableCell>
-                                    <TableCell>Nome completo</TableCell>
-                                    <TableCell>E-mail</TableCell>
+                <TableContainer component={Paper} variant="outlined">
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Ações</TableCell>
+                                <TableCell>Nome completo</TableCell>
+                                <TableCell>E-mail</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map((row) => (
+                                <TableRow key={row.id}>
+                                    <TableCell>
+                                        <IconButton><Icon>delete</Icon></IconButton>
+                                        <IconButton><Icon>edit</Icon></IconButton>
+                                    </TableCell>
+                                    <TableCell>{row.nomeCompleto}</TableCell>
+                                    <TableCell>{row.email}</TableCell>
                                 </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <TableRow key={row.id}>
-                                        <TableCell>
-                                            <IconButton><Icon>delete</Icon></IconButton>
-                                            <IconButton><Icon>edit</Icon></IconButton>
-                                        </TableCell>
-                                        <TableCell>{row.nomeCompleto}</TableCell>
-                                        <TableCell>{row.email}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                ) : (
-                    <Typography>
-                        {Environment.LISTAGEM_VAZIA}
-                    </Typography>
-                )}
+                            ))}
+                        </TableBody>
+                        <TableFooter>
+                            {isLoading && (
+                                <TableRow>
+                                    <TableCell colSpan={3}>
+                                        <LinearProgress variant="indeterminate" />
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                            {(!isLoading && totalCount <= 0) && (
+                                <TableRow>
+                                    <TableCell colSpan={3}>
+                                        <Typography>{Environment.LISTAGEM_VAZIA}</Typography>
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableFooter>
+                    </Table>
+                </TableContainer>
             </Box>
         </LayoutBaseDePagina>
     )
