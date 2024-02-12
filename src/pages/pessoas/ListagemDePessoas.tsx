@@ -4,7 +4,7 @@ import { LayoutBaseDePagina } from "../../shared/layouts"
 import { useEffect, useMemo, useState } from "react";
 import { IListagemPessoa, PessoasService } from "../../shared/services/api/pessoas/PessoasService";
 import { useDebounce } from "../../shared/hooks";
-import { Box, Icon, IconButton, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from "@mui/material";
 import { Environment } from "../../shared/environment";
 
 export const ListagemDePessoas: React.FC = () => {
@@ -20,10 +20,14 @@ export const ListagemDePessoas: React.FC = () => {
         return searchParams.get('busca') || '';
     }, [searchParams]);
 
+    const pagina = useMemo(() => {
+        return Number(searchParams.get('pagina') || '1');
+    }, [searchParams]);
+
     useEffect(() => {
         setIsLoading(true);
         debounce(() => {
-            PessoasService.getAll(1, busca)
+            PessoasService.getAll(pagina, busca)
                 .then((result) => {
                     setIsLoading(false);
 
@@ -35,7 +39,7 @@ export const ListagemDePessoas: React.FC = () => {
                     setTotalCount(result.totalCount);
                 });
         });
-    }, [busca, debounce])
+    }, [busca, debounce, pagina])
 
     return (
         <LayoutBaseDePagina
@@ -45,7 +49,7 @@ export const ListagemDePessoas: React.FC = () => {
                     textoBotaoNovo="Nova"
                     mostrarInputBusca
                     textoDaBusca={busca}
-                    aoMudarTextoDeBusca={texto => setSearchParams({ busca: texto }, { replace: true })}
+                    aoMudarTextoDeBusca={texto => setSearchParams({ busca: texto, pagina: '1' }, { replace: true })}
                 />
             }
         >
@@ -71,6 +75,11 @@ export const ListagemDePessoas: React.FC = () => {
                                 </TableRow>
                             ))}
                         </TableBody>
+
+                        {(!isLoading && totalCount <= 0) && (
+                            <caption>{Environment.LISTAGEM_VAZIA}</caption>
+                        )}
+
                         <TableFooter>
                             {isLoading && (
                                 <TableRow>
@@ -79,10 +88,15 @@ export const ListagemDePessoas: React.FC = () => {
                                     </TableCell>
                                 </TableRow>
                             )}
-                            {(!isLoading && totalCount <= 0) && (
+                            {(totalCount > 0 && totalCount > Environment.LIMITE_DE_LINHAS) && (
                                 <TableRow>
                                     <TableCell colSpan={3}>
-                                        <Typography>{Environment.LISTAGEM_VAZIA}</Typography>
+                                        <Pagination 
+                                            page={pagina}
+                                            count={Math.ceil(totalCount / Environment.LIMITE_DE_LINHAS)} 
+                                            color="primary" 
+                                            onChange={(_, newPage) => setSearchParams({ busca, pagina: newPage.toString() }, { replace: true })}
+                                        />
                                     </TableCell>
                                 </TableRow>
                             )}
