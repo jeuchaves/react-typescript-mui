@@ -80,5 +80,8 @@
       "nome": "São Paulo",
       "id": 7
     }
-  ]
+  ],
+  "auth": {
+    "acessToken": "FSOYTKX3sXBUolURTrGdsH7LW3lyHsXcL9lBzTj56dD1F40Evyw9l8p5dyI9WCcJ"
+  }
 }
