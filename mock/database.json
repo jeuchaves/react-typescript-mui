@@ -75,6 +75,10 @@
     {
       "nome": "Rio de Janeiro",
       "id": 6
+    },
+    {
+      "nome": "São Paulo",
+      "id": 7
     }
   ]
 }
