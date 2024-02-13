@@ -1,76 +1,38 @@
 {
   "pessoas": [
     {
-      "id": 1,
-      "nomeCompleto": "Jeú Chaves Lima",
-      "email": "jeu@gmail.com",
-      "cidadeId": 1
+      "cidadeId": 1,
+      "email": "jeuchaves@gmail.com",
+      "nomeCompleto": "Jeú Chaves",
+      "id": 1
     },
     {
-      "id": 4,
-      "email": "alice@gmail.com",
-      "nomeCompleto": "Alice Pimentel",
-      "cidadeId": 1
+      "cidadeId": 1,
+      "email": "jaqueline@gmail.com",
+      "nomeCompleto": "Jaqueline Lorenzoni",
+      "id": 2
+    }
+  ],
+  "cidades": [
+    {
+      "nome": "Aquidauana",
+      "id": 2
     },
     {
-      "id": 5,
-      "email": "laura@gmail.com",
-      "nomeCompleto": "Laura Pimentel",
-      "cidadeId": 1
+      "id": 3,
+      "nome": "Campo Grande"
     },
     {
-      "id": 6,
-      "nomeCompleto": "Maria Alice",
-      "email": "maria_alice@gmail.com",
-      "cidadeId": 1
+      "nome": "Bonito",
+      "id": 4
     },
     {
-      "id": 7,
-      "email": "sophia@gmail.com",
-      "nomeCompleto": "Sophia Pimentel",
-      "cidadeId": 1
+      "nome": "Rio Brilhante",
+      "id": 5
     },
     {
-      "id": 8,
-      "email": "manuela@gmail.com",
-      "nomeCompleto": "Manuela Pimentel",
-      "cidadeId": 1
-    },
-    {
-      "id": 9,
-      "email": "maite@gmail.com",
-      "nomeCompleto": "Maite Pimentel",
-      "cidadeId": 2
-    },
-    {
-      "id": 10,
-      "email": "liz@gmail.com",
-      "nomeCompleto": "Liz Pimentel",
-      "cidadeId": 1
-    },
-    {
-      "id": 11,
-      "email": "cecilia@gmail.com",
-      "nomeCompleto": "Cecilia Pimentel",
-      "cidadeId": 1
-    },
-    {
-      "id": 12,
-      "email": "isabela@gmail.com",
-      "nomeCompleto": "Isabela Pimentel",
-      "cidadeId": 1
-    },
-    {
-      "id": 13,
-      "email": "luisa@gmail.com",
-      "nomeCompleto": "Luisa Pimentel",
-      "cidadeId": 3
-    },
-    {
-      "id": 14,
-      "email": "eloa@gmail.com",
-      "nomeCompleto": "Eloah Pimentel",
-      "cidadeId": 3
+      "nome": "Rio de Janeiro",
+      "id": 6
     }
   ]
 }
