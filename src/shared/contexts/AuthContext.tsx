@@ -1,6 +1,7 @@
 import React, {
     createContext,
     useCallback,
+    useContext,
     useEffect,
     useMemo,
     useState,
@@ -61,3 +62,5 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
         </AuthContext.Provider>
     );
 };
+
+export const useAuthContext = () => useContext(AuthContext);
