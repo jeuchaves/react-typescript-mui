@@ -68,9 +68,6 @@ export const DetalheDePessoas: React.FC = () => {
           if (!error.path) return;
           validationErrors[error.path] = error.message;
         });
-
-        console.log(validationErrors);
-
         formRef.current?.setErrors(validationErrors);
       });
   };
